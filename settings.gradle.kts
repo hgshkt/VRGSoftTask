@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "VRGSoftTask"
 include(":app")
 include(":domain")
+include(":data")
