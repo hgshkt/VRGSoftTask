@@ -1,4 +1,4 @@
-package com.hgshkt.vrgsofttask.ui.theme
+package com.hgshkt.vrgsofttask.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

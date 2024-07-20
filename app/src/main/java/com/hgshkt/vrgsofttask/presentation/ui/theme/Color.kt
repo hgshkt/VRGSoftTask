@@ -1,4 +1,4 @@
-package com.hgshkt.vrgsofttask.ui.theme
+package com.hgshkt.vrgsofttask.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

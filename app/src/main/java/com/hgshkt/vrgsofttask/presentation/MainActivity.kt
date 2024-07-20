@@ -1,4 +1,4 @@
-package com.hgshkt.vrgsofttask
+package com.hgshkt.vrgsofttask.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,13 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.hgshkt.vrgsofttask.ui.theme.VRGSoftTaskTheme
+import androidx.navigation.compose.rememberNavController
+import com.hgshkt.vrgsofttask.presentation.navigation.NavGraph
+import com.hgshkt.vrgsofttask.presentation.ui.theme.VRGSoftTaskTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -23,7 +21,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             VRGSoftTaskTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {  innerPadding ->
+                    val controller = rememberNavController()
 
+                    NavGraph(controller = controller)
                 }
             }
         }
