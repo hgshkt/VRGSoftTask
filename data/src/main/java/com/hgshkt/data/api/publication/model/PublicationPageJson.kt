@@ -15,7 +15,7 @@ data class PublicationPageJson(
         @SerializedName("before")
         val before: Any?,
         @SerializedName("children")
-        val children: List<Children?>?,
+        val children: List<Children>?,
         @SerializedName("dist")
         val dist: Int,
         @SerializedName("geo_filter")

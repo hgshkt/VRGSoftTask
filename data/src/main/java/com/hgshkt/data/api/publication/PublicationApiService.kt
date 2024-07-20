@@ -8,7 +8,7 @@ import retrofit2.Response
 interface PublicationApiService {
     @GET("/top.json")
     fun top(
-        @Query("after") after: String,
+        @Query("after") after: String?,
         @Query("count") count: Int
     ): Response<PublicationPageJson>
 }
