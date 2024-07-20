@@ -6,7 +6,11 @@ import com.hgshkt.domain.model.Publication
 fun PublicationPageJson.Data.Children.toDomain(): Publication {
     with(childrenData!!) {
         return Publication(
-            id = name!!
+            id = name!!,
+            author = author!!,
+            date = createdUtc,
+            imageUrl = thumbnail!!,
+            commentariesCount = numCrossposts
         )
     }
 }
