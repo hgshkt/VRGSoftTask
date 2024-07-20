@@ -72,4 +72,9 @@ dependencies {
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Paging
+    val pagingVersion = "3.3.0"
+
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
 }

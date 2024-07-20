@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 class PublicationRepositoryImpl(
     private val pagingSource: PublicationsPagingSource
 ): PublicationRepository {
-    override suspend fun getPublications(): Flow<PagingData<Publication>> {
+    override fun getPublications(): Flow<PagingData<Publication>> {
         return Pager(
             config = pagingConfig,
             pagingSourceFactory = {

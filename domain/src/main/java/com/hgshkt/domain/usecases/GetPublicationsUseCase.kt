@@ -9,7 +9,7 @@ class GetPublicationsUseCase(
     private val publicationRepository: PublicationRepository
 ) {
 
-    suspend fun execute(): Flow<PagingData<Publication>> {
+    fun execute(): Flow<PagingData<Publication>> {
         return publicationRepository.getPublications()
     }
 }
