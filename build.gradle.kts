@@ -4,6 +4,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.android.library) apply false
-    id ("org.jetbrains.kotlin.kapt") version "1.9.10"
-    id ("com.google.dagger.hilt.android") version "2.46.1" apply false
+    kotlin("kapt") version "1.9.0"
+    id("com.google.dagger.hilt.android") version "2.46.1" apply false
 }

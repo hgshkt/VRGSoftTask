@@ -46,7 +46,7 @@ dependencies {
     // Paging
     val pagingVersion = "3.3.0"
 
-    implementation("androidx.paging:paging-runtime:$pagingVersion")
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
