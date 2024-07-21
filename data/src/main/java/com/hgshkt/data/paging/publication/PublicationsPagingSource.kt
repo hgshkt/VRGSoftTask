@@ -9,29 +9,24 @@ import retrofit2.HttpException
 
 class PublicationsPagingSource(
     private val apiService: PublicationApiService
-) : PagingSource<PublicationKey, Children>() {
+) : PagingSource<String, Children>() {
 
     private val count = pagingConfig.pageSize
 
-    override fun getRefreshKey(state: PagingState<PublicationKey, Children>): PublicationKey? {
-        val anchorPosition = state.anchorPosition ?: return null
-        val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
-        with(anchorPage) {
-            return PublicationKey(
-                after = nextKey?.current!!,
-                current = prevKey?.after ?: nextKey?.before!!,
-                before = prevKey?.current!!
-            )
+    override fun getRefreshKey(state: PagingState<String, Children>): String? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey ?: anchorPage?.nextKey
         }
     }
 
     override suspend fun load(
-        params: LoadParams<PublicationKey>
-    ): LoadResult<PublicationKey, Children> {
+        params: LoadParams<String>
+    ): LoadResult<String, Children> {
         try {
             val response = apiService.top(
                 count = count,
-                after = params.key?.after
+                after = params.key
             )
 
             if (response.isSuccessful) {
@@ -39,16 +34,9 @@ class PublicationsPagingSource(
 
                 val publications = body.data!!.children!!
 
-                val prevKey = PublicationKey(
-                    after = params.key?.after!!,
-                    current = params.key?.current!!,
-                    before = params.key?.before!!,
-                )
+                val prevKey = params.key
 
-                val nextKey = PublicationKey(
-                    current = body.data.after!!,
-                    before = params.key?.after!!
-                )
+                val nextKey = body.data.after
 
                 return LoadResult.Page(publications, prevKey, nextKey)
             } else {
@@ -62,9 +50,3 @@ class PublicationsPagingSource(
         }
     }
 }
-
-data class PublicationKey(
-    val after: String? = null,
-    val current: String? = null,
-    val before: String? = null
-)
