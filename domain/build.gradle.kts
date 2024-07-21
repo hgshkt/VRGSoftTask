@@ -10,8 +10,9 @@ java {
 
 dependencies {
 
+    val pagingVersion = "3.3.0"
 
-    implementation(libs.androidx.paging.common.jvm)
+    implementation("androidx.paging:paging-common:$pagingVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 }

@@ -81,6 +81,9 @@ dependencies {
     implementation("androidx.paging:paging-compose:$pagingVersion")
     implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
+//    implementation(libs.androidx.paging.compose)
+//    implementation(libs.androidx.paging.runtime)
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
