@@ -7,7 +7,7 @@ import coil.compose.AsyncImage
 
 @Composable
 fun ImageScreen(
-    imageUrl: String
+    imageUrl: String?
 ) {
     AsyncImage(
         model = imageUrl,

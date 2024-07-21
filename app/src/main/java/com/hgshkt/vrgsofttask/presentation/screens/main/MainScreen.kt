@@ -14,10 +14,11 @@ import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.hgshkt.domain.model.Publication
 import com.hgshkt.vrgsofttask.presentation.viewModels.main.MainViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val publications = viewModel.publicationsPagingData.collectAsLazyPagingItems()
 

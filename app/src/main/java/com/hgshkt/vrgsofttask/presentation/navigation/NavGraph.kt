@@ -24,8 +24,8 @@ fun NavGraph(
                     type = NavType.StringType
                 }
             )
-        ) {
-            ImageScreen()
+        ) { backStackEntry ->
+            ImageScreen(backStackEntry.arguments?.getString(Screen.Image.argName))
         }
     }
 }
