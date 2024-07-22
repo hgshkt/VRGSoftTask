@@ -3,10 +3,13 @@ package com.hgshkt.vrgsofttask.presentation.screens.main
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -15,7 +18,6 @@ import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.hgshkt.domain.model.Publication
 import com.hgshkt.vrgsofttask.presentation.viewModels.main.MainViewModel
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun MainScreen(
@@ -32,6 +34,7 @@ private fun PublicationList(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
+            .padding(12.dp)
     ) {
         items(
             count = publicationsLazyItems.itemCount,
@@ -39,7 +42,7 @@ private fun PublicationList(
             contentType = publicationsLazyItems.itemContentType { "Publications" }
         ) { index ->
             publicationsLazyItems[index]?.let { publication ->
-                PublicationItem(publication)
+                PublicationItem(publication, modifier = Modifier.fillMaxWidth())
             }
         }
     }
@@ -50,7 +53,7 @@ private fun PublicationItem(
     publication: Publication,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier) {
+    Column(modifier.padding(12.dp)) {
         Author(publication.author)
         PublishDate(publication.date)
         AsyncImage(
@@ -63,12 +66,12 @@ private fun PublicationItem(
 
 @Composable
 fun CommentariesCount(commentariesCount: Int) {
-    Text("$commentariesCount comments")
+    Text("$commentariesCount comments", modifier = Modifier.padding(4.dp))
 }
 
 @Composable
 fun PublishDate(date: Int) {
-    Text(date.toFormat())
+    Text(date.toFormat(), modifier = Modifier.padding(4.dp))
 }
 
 private fun Int.toFormat(): String {
@@ -83,5 +86,5 @@ private fun Int.toFormat(): String {
 
 @Composable
 private fun Author(author: String) {
-    Text(author)
+    Text(author, modifier = Modifier.padding(4.dp))
 }

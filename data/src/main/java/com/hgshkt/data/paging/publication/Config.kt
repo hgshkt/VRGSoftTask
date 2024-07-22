@@ -2,4 +2,4 @@ package com.hgshkt.data.paging.publication
 
 import androidx.paging.PagingConfig
 
-val pagingConfig = PagingConfig(pageSize = 25)
+val pagingConfig = PagingConfig(pageSize = 25, initialLoadSize = 25)
