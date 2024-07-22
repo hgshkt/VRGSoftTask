@@ -22,6 +22,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.hgshkt.domain.model.Publication
+import com.hgshkt.vrgsofttask.presentation.data.hoursAgo
 import com.hgshkt.vrgsofttask.presentation.navigation.Screen
 import com.hgshkt.vrgsofttask.presentation.viewModels.main.MainViewModel
 
@@ -100,28 +101,7 @@ fun CommentariesCount(commentariesCount: Int, modifier: Modifier = Modifier) {
 
 @Composable
 fun PublishDate(date: Int, modifier: Modifier = Modifier) {
-    Text(date.toFormat(), modifier = modifier)
-}
-
-private fun Int.toFormat(): String {
-    val now = System.currentTimeMillis() / 1000
-    val seconds = now - this
-
-    val minutes = seconds / 60
-    val hours = minutes / 60
-    val days = hours / 24
-    val weeks = days / 7
-    val years = days / 356
-
-    return when {
-        years > 0 -> "$years day${if (years > 1) "s" else ""} ago"
-        weeks > 0 -> "$weeks day${if (weeks > 1) "s" else ""} ago"
-        days > 0 -> "$days day${if (days > 1) "s" else ""} ago"
-        hours > 0 -> "$hours hour${if (hours > 1) "s" else ""} ago"
-        minutes > 0 -> "$minutes minute${if (minutes > 1) "s" else ""} ago"
-        seconds > 0 -> "$seconds second${if (seconds > 1) "s" else ""} ago"
-        else -> "Just now"
-    }
+    Text(date.hoursAgo, modifier = modifier)
 }
 
 @Composable
