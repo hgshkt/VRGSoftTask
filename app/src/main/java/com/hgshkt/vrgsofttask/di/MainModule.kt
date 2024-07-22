@@ -1,5 +1,6 @@
 package com.hgshkt.vrgsofttask.di
 
+import android.content.Context
 import com.hgshkt.data.api.RetrofitService
 import com.hgshkt.data.api.publication.PublicationApiService
 import com.hgshkt.data.local.image.LocalImageStorage
@@ -12,6 +13,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -33,6 +35,14 @@ object MainModuleImpl {
         localImageStorage: LocalImageStorage
     ): PublicationRepositoryImpl {
         return PublicationRepositoryImpl(pagingSource, localImageStorage)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalImageStorageImpl(
+        @ApplicationContext context: Context
+    ): LocalImageStorageImpl {
+        return LocalImageStorageImpl(context)
     }
 
     @Provides
