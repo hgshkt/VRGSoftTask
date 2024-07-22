@@ -10,7 +10,7 @@ fun PublicationPageJson.Data.Children.toDomain(): Publication {
             author = author!!,
             date = createdUtc,
             imageUrl = thumbnail!!,
-            commentariesCount = numCrossposts
+            commentariesCount = numComments
         )
     }
 }
