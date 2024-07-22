@@ -2,6 +2,8 @@ package com.hgshkt.vrgsofttask.di
 
 import com.hgshkt.data.api.RetrofitService
 import com.hgshkt.data.api.publication.PublicationApiService
+import com.hgshkt.data.local.image.LocalImageStorage
+import com.hgshkt.data.local.image.LocalImageStorageImpl
 import com.hgshkt.data.paging.publication.PublicationsPagingSource
 import com.hgshkt.data.repository.PublicationRepositoryImpl
 import com.hgshkt.domain.data.PublicationRepository
@@ -27,9 +29,10 @@ object MainModuleImpl {
     @Provides
     @Singleton
     fun providePublicationRepositoryImpl(
-        pagingSource: PublicationsPagingSource
+        pagingSource: PublicationsPagingSource,
+        localImageStorage: LocalImageStorage
     ): PublicationRepositoryImpl {
-        return PublicationRepositoryImpl(pagingSource)
+        return PublicationRepositoryImpl(pagingSource, localImageStorage)
     }
 
     @Provides
@@ -54,4 +57,10 @@ abstract class MainModule {
     abstract fun providePublicationRepository(
         publicationRepositoryImpl: PublicationRepositoryImpl
     ): PublicationRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideLocalImageStorage(
+        publicationRepositoryImpl: LocalImageStorageImpl
+    ): LocalImageStorage
 }
