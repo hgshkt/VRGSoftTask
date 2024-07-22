@@ -1,5 +1,6 @@
 package com.hgshkt.vrgsofttask.presentation.screens.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,30 +12,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.hgshkt.domain.model.Publication
+import com.hgshkt.vrgsofttask.presentation.navigation.Screen
 import com.hgshkt.vrgsofttask.presentation.viewModels.main.MainViewModel
 
 @Composable
 fun MainScreen(
+    controller: NavController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val publications = viewModel.publicationsPagingData.collectAsLazyPagingItems()
 
-    PublicationList(publications)
+    PublicationList(publications) { url ->
+        controller.navigate(Screen.Image.setValueToRoute(url))
+    }
 }
 
 @Composable
 private fun PublicationList(
-    publicationsLazyItems: LazyPagingItems<Publication>
+    publicationsLazyItems: LazyPagingItems<Publication>,
+    onImageClick: (url: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -45,9 +51,12 @@ private fun PublicationList(
             contentType = publicationsLazyItems.itemContentType { "Publications" }
         ) { index ->
             publicationsLazyItems[index]?.let { publication ->
-                PublicationItem(publication, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 4.dp)
+                PublicationItem(
+                    publication = publication,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp, 4.dp),
+                    onImageClick = { onImageClick(publication.imageUrl) }
                 )
             }
         }
@@ -57,7 +66,8 @@ private fun PublicationList(
 @Composable
 private fun PublicationItem(
     publication: Publication,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onImageClick: () -> Unit
 ) {
     Card(modifier) {
         Column(
@@ -69,7 +79,11 @@ private fun PublicationItem(
                 model = publication.imageUrl,
                 contentDescription = "Publication image",
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable {
+                        onImageClick()
+                    }
             )
             CommentariesCount(
                 publication.commentariesCount,
@@ -77,21 +91,6 @@ private fun PublicationItem(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun ItemPreview() {
-    val publication = Publication(
-        id = "t2_qwer",
-        author = "author",
-        date = 1721566733,
-        imageUrl = "https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg",
-        commentariesCount = 14
-    )
-    PublicationItem(
-        publication = publication
-    )
 }
 
 @Composable

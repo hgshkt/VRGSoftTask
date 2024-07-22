@@ -1,5 +1,6 @@
 package com.hgshkt.vrgsofttask.presentation.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -15,7 +16,7 @@ fun NavGraph(
 ) {
     NavHost(navController = controller, startDestination = Screen.Main.route) {
         composable(route = Screen.Main.route) {
-            MainScreen()
+            MainScreen(controller)
         }
         composable(
             route = Screen.Image.routeWithArg,
@@ -35,5 +36,8 @@ sealed class Screen(open val route: String) {
     data object Image : Screen("Image") {
         val argName = "photoUrl"
         val routeWithArg: String = "$route/{$argName}"
+        fun setValueToRoute(url: String): String {
+            return "$route/${Uri.encode(url)}"
+        }
     }
 }
